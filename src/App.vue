@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="container-sm">
     <div>
       <div class-col sm="6" offset="3">
@@ -10,6 +11,7 @@
 
 <script>
 import QuestionBox from "./components/QuestionBox";
+import Navbar from "./components/Navbar";
 
 export default {
   data() {
@@ -19,7 +21,8 @@ export default {
   },
   name: "App",
   components: {
-    QuestionBox
+    QuestionBox,
+    Navbar
   },
   mounted() {}
 };
