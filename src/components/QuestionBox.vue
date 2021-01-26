@@ -1,26 +1,45 @@
 <template>
   <div class="jumbotron jumbotron-fluid">
-    <div v-show="showQuestions" v-if="!isEnd">
-      <p>Questões {{ currentQuestion + 1 }} de {{ questions.length }}</p>
-      <h4>{{ questions[currentQuestion] }}</h4>
+    <div class="container-fluid">
       <div>
-        <br class="my-4" />
-        <ul class="list-group">
-          <li
-            class="list-group-item"
-            v-for="(answer, index) in answers"
-            v-bind:key="answer.index"
-            @click="selectAnswer(index)"
-            :class="[selectedIndex === index ? 'selected' : '']"
-          >
-            {{ answer }}
-          </li>
-        </ul>
-        <b-button class="btn btn-primary" href="#">Voltar</b-button>
-        <b-button class="btn btn-success" href="#">Proximo</b-button>
+        <h4>Qual é seu e-mail?</h4>
+        <input
+          class="form-control smr-sm-2 my-4"
+          type="email"
+          placeholder="Digite seu e-mail"
+          aria-label="Pesquisar"
+        />
+        <b-button class="btn btn-success" href="#" @click="nextStart"
+          >Proximo</b-button
+        >
       </div>
+      <div v-if="!isEnd">
+        <p>Questões {{ currentQuestion + 1 }} de {{ questions.length }}</p>
+        <h4>{{ questions[currentQuestion] }}</h4>
+        <div>
+          <br class="my-4" />
+          <ul class="list-group">
+            <li
+              class="list-group-item abc justify-content-between"
+              v-for="(answer, index) in answers"
+              v-bind:key="answer.index"
+              @click="selectAnswer(index)"
+              :class="[selectedIndex === index ? 'selected' : '']"
+            >
+              {{ answer }}
+            </li>
+          </ul>
+
+          <b-button class="btn btn-primary" href="#" @click="back"
+            >Voltar</b-button
+          >
+          <b-button class="btn btn-success" href="#" @click="next"
+            >Proximo</b-button
+          >
+        </div>
+      </div>
+      <div v-else>FIM</div>
     </div>
-    <div v-else>FIM</div>
   </div>
 </template>
 
@@ -51,6 +70,21 @@ export default {
   methods: {
     selectAnswer(index) {
       this.selectedIndex = index;
+    },
+    nextStart() {
+      this.showQuestions = true;
+      this.showEmail = false;
+    },
+    next() {
+      if (this.index < this.questions.length - 1) {
+        this.correctAnswers++;
+      }
+      this.currentQuestion++;
+      this.index++;
+      this.selectedIndex = null;
+    },
+    back() {
+      this.currentQuestion = this.currentQuestion - 1;
     }
   }
 };
@@ -60,7 +94,6 @@ export default {
 .list-group {
   margin-bottom: 15px;
 }
-
 .list-group-item:hover {
   background: #eeeeee;
   cursor: pointer;
