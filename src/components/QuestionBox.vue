@@ -1,7 +1,7 @@
 <template>
   <div class="jumbotron jumbotron-fluid">
     <div class="container-fluid">
-      <div>
+      <div v-show="showEmail">
         <h4>Qual é seu e-mail?</h4>
         <input
           class="form-control smr-sm-2 my-4"
@@ -13,7 +13,7 @@
           >Proximo</b-button
         >
       </div>
-      <div v-if="!isEnd">
+      <div v-show="showQuestions" v-if="!isEnd">
         <p>Questões {{ currentQuestion + 1 }} de {{ questions.length }}</p>
         <h4>{{ questions[currentQuestion] }}</h4>
         <div>
@@ -48,6 +48,9 @@ export default {
   props: {},
   data() {
     return {
+      show: true,
+      showQuestions: false,
+      showEmail: true,
       selectedIndex: null,
       currentQuestion: 0,
       questions: [
@@ -112,5 +115,26 @@ export default {
 .selected:hover {
   background: rgb(96, 96, 231);
   color: white;
+}
+
+.abc {
+  -webkit-transition: all 200ms ease-in;
+  -ms-transition: all 200ms ease-in;
+  -moz-transition: all 200ms ease-in;
+  transition: all 200ms ease-in;
+}
+.abc:hover {
+  -webkit-transition: all 200ms ease-in;
+  -webkit-transform: scale(0.9);
+  -webkit-transform: scale(1.1);
+  -ms-transition: all 200ms ease-in;
+  -ms-transform: scale(0.9);
+  -ms-transform: scale(1.1);
+  -moz-transition: all 200ms ease-in;
+  -moz-transform: scale(0.9);
+  -moz-transform: scale(1.1);
+  transition: all 200ms ease-in;
+  transform: scale(0.9);
+  transform: scale(1.1);
 }
 </style>
